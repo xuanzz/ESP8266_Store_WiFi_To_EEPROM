@@ -4,8 +4,6 @@
 
 ESP8266WebServer server(80);
 
-const char* ssid = "test";
-const char* passphrase = "test";
 const char* BlocklyID = "FFFF";
 const char* WiFiPass = "12345678";
 
@@ -120,6 +118,9 @@ void setupAP(void) {
   Serial.println("over");
 }
 
+
+void(* resetFunc) (void) = 0;//declare reset function at address 0
+
 void createWebServer(int webtype)
 {
   if ( webtype == 1 ) {
@@ -162,6 +163,8 @@ void createWebServer(int webtype)
           EEPROM.commit();
           content = "{\"Success\":\"saved to eeprom... reset to boot into new wifi\"}";
           statusCode = 200;
+          delay(1000);
+          resetFunc();
         } else {
           content = "{\"Error\":\"404 not found\"}";
           statusCode = 404;
@@ -185,6 +188,7 @@ void createWebServer(int webtype)
     });
   }
 }
+
 
 void loop() {
   server.handleClient();
