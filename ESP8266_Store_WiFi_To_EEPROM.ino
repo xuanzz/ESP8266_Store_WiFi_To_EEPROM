@@ -128,7 +128,7 @@ void(* resetFunc) (void) = 0;//declare reset function at address 0
 
 void createWebServer(int webtype)
 {
-  if ( webtype == 1 ) {
+  if (( webtype == 1 ) || ( webtype == 0 )) {
     server.on("/", []() {
       IPAddress ip = WiFi.softAPIP();
       String ipStr = String(ip[0]) + '.' + String(ip[1]) + '.' + String(ip[2]) + '.' + String(ip[3]);
@@ -179,7 +179,7 @@ void createWebServer(int webtype)
       }
       server.send(statusCode, "application/json", content);
     });
-  } else if (webtype == 0) {
+  } /*else if (webtype == 0) {
     server.on("/", []() {
       IPAddress ip = WiFi.localIP();
       String ipStr = String(ip[0]) + '.' + String(ip[1]) + '.' + String(ip[2]) + '.' + String(ip[3]);
@@ -195,7 +195,7 @@ void createWebServer(int webtype)
       }
       EEPROM.commit();
     });
-  }
+  }*/
 }
 
 
