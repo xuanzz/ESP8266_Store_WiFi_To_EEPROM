@@ -170,14 +170,14 @@ void createWebServer(int webtype)
         EEPROM.commit();
         content = "{\"Success\":\"saved to eeprom... reset to boot into new wifi\"}";
         statusCode = 200;
-        delay(1000);
-        resetFunc();
       } else {
         content = "{\"Error\":\"404 not found\"}";
         statusCode = 404;
         Serial.println("Sending 404");
       }
       server.send(statusCode, "application/json", content);
+      delay(1000);
+      resetFunc();
     });
   } /*else if (webtype == 0) {
     server.on("/", []() {
