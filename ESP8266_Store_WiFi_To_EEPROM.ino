@@ -12,7 +12,7 @@ String content;
 int statusCode;
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(57600);
   EEPROM.begin(512);
   delay(10);
   Serial.println();
